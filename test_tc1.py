@@ -31,6 +31,9 @@ class TestTc1():
     def teardown_method(self, method):
         self.driver.quit()
 
+    def save_screenshot(self, name):
+        self.driver.save_screenshot(name)
+
     def test_tc1(self):
         self.driver.get("http://seleniumdemo.com/")
         self.driver.set_window_size(1800, 993)
@@ -41,5 +44,3 @@ class TestTc1():
         self.driver.find_element(By.LINK_TEXT, "View cart").click()
         self.driver.find_element(By.LINK_TEXT, "×").click()
         self.driver.find_element(By.CSS_SELECTOR, ".row .branding-row span").click()
-
-
