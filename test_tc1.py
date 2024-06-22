@@ -27,10 +27,6 @@ class TestTc1:
             EC.element_to_be_clickable((By.CSS_SELECTOR, ".sek-btn-text"))
         ).click()
 
-        # Pobieranie tekstu elementu przed kliknięciem
-        add_to_cart_text = self.get_element_text(driver, By.LINK_TEXT, "Add to cart")
-        print(f'Tekst elementu "Add to cart": {add_to_cart_text}')
-
         # Kliknięcie na element
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "Add to cart"))
@@ -40,6 +36,9 @@ class TestTc1:
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.LINK_TEXT, "View cart"))
         ).click()
+        time.sleep(2)
+        price = self.get_element_text(driver, By.CLASS_NAME, 'woocommerce-Price-currencySymbol')
+        print(f'Tekst elementu "Add to cart": {price}')
 
         # Oczekiwanie na element
         WebDriverWait(driver, 10).until(

@@ -1,3 +1,4 @@
+import locale
 import sys
 
 from selenium import webdriver
@@ -40,3 +41,10 @@ def browser_fixture(request):
 
     yield driver
     driver.quit()
+
+
+@pytest.fixture(autouse=True)
+def setup_locale():
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    yield
+    locale.setlocale(locale.LC_ALL, None)
