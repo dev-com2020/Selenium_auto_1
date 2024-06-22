@@ -5,7 +5,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -34,13 +34,23 @@ class TestTc1():
     def save_screenshot(self, name):
         self.driver.save_screenshot(name)
 
+    def get_element_text(self, by, value):
+        element = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((by, value))
+        )
+        return element.text
+
     def test_tc1(self):
         self.driver.get("http://seleniumdemo.com/")
         self.driver.set_window_size(1800, 993)
         self.driver.find_element(By.CSS_SELECTOR, ".sek-btn-text").click()
         time.sleep(3)
-        self.driver.find_element(By.LINK_TEXT, "Add to cart").click()
+        add_to_cart = self.get_element_text(By.XPATH, "//*[@id='content']/ul/li[2]/a[2]")
+        self.driver.find_element(By.XPATH, "//*[@id='content']/ul/li[2]/a[2]").click()
         time.sleep(3)
         self.driver.find_element(By.LINK_TEXT, "View cart").click()
+        product_name = self.get_element_text(By.XPATH,
+                                             "//*[@id='page-5']/div/section/div/div/form/table/tbody/tr[1]/td[3]/a")
+        print(f"Tekst z elementu: {product_name}")
         self.driver.find_element(By.LINK_TEXT, "×").click()
         self.driver.find_element(By.CSS_SELECTOR, ".row .branding-row span").click()
