@@ -11,46 +11,45 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-class TestTc1():
-    def setup_method(self, method, browser='chrome', headless=True):
-        if browser == 'firefox':
-            options = webdriver.FirefoxOptions()
-            if headless:
-                options.add_argument('--headless')
-            self.driver = webdriver.Firefox(options=options)
-
-        elif browser == 'chrome':
-            options = webdriver.ChromeOptions()
-            if headless:
-                options.add_argument('--headless')
-            self.driver = webdriver.Chrome(options=options)
-        else:
-            raise Exception('Niedostępna przeglądarka')
-        self.vars = {}
-
-    def teardown_method(self, method):
-        self.driver.quit()
-
-    def save_screenshot(self, name):
-        self.driver.save_screenshot(name)
-
-    def get_element_text(self, by, value):
-        element = WebDriverWait(self.driver, 10).until(
+class TestTc1:
+    def get_element_text(self, driver, by, value):
+        element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((by, value))
         )
         return element.text
 
-    def test_tc1(self):
-        self.driver.get("http://seleniumdemo.com/")
-        self.driver.set_window_size(1800, 993)
-        self.driver.find_element(By.CSS_SELECTOR, ".sek-btn-text").click()
-        time.sleep(3)
-        add_to_cart = self.get_element_text(By.XPATH, "//*[@id='content']/ul/li[2]/a[2]")
-        self.driver.find_element(By.XPATH, "//*[@id='content']/ul/li[2]/a[2]").click()
-        time.sleep(3)
-        self.driver.find_element(By.LINK_TEXT, "View cart").click()
-        product_name = self.get_element_text(By.XPATH,
-                                             "//*[@id='page-5']/div/section/div/div/form/table/tbody/tr[1]/td[3]/a")
-        print(f"Tekst z elementu: {product_name}")
-        self.driver.find_element(By.LINK_TEXT, "×").click()
-        self.driver.find_element(By.CSS_SELECTOR, ".row .branding-row span").click()
+    def test_tc1(self, driver):
+        driver.get("http://seleniumdemo.com/")
+        driver.set_window_size(1800, 993)
+
+        # Oczekiwanie na element
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, ".sek-btn-text"))
+        ).click()
+
+        # Pobieranie tekstu elementu przed kliknięciem
+        add_to_cart_text = self.get_element_text(driver, By.LINK_TEXT, "Add to cart")
+        print(f'Tekst elementu "Add to cart": {add_to_cart_text}')
+
+        # Kliknięcie na element
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.LINK_TEXT, "Add to cart"))
+        ).click()
+
+        # Oczekiwanie na element
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.LINK_TEXT, "View cart"))
+        ).click()
+
+        # Oczekiwanie na element
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.LINK_TEXT, "×"))
+        ).click()
+
+        # Oczekiwanie na element
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, ".row .branding-row span"))
+        ).click()
+
+    def save_screenshot(self, driver, name):
+        driver.save_screenshot(name)
