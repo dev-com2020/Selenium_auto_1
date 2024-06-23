@@ -107,3 +107,15 @@ class TestTc9:
         actions = ActionChains(driver)
         actions.drag_and_drop(src, trg).perform()
         driver.save_screenshot("test_actions_drag_trg.png")
+
+    def test_context_click(self, driver):
+        driver.get("http://guidebook.seleniumacademy.com/ContextClick.html")
+        contexMenu = driver.find_element(By.ID, "div-context")
+        actions = ActionChains(driver)
+        actions.context_click(contexMenu)
+        actions.click(driver.find_element(By.NAME, "Item 4"))
+        actions.perform()
+        alert = driver.switch_to.alert
+        alert.accept()
+        driver.save_screenshot("test_actions_context.png")
+
