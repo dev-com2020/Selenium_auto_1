@@ -92,3 +92,18 @@ class TestTc9:
         actions.move_by_offset(100, 0)
         actions.perform()
         driver.save_screenshot("test_actions_hold2.png")
+
+    def test_should_drag(self, driver):
+        driver.get("http://guidebook.seleniumacademy.com/DragMe.html")
+        dragme = driver.find_element(By.ID, 'draggable')
+        actions = ActionChains(driver)
+        actions.drag_and_drop_by_offset(dragme, 200, 300).perform()
+        driver.save_screenshot("test_actions_drag.png")
+
+    def test_should_drag2(self, driver):
+        driver.get("http://guidebook.seleniumacademy.com/DragAndDrop.html")
+        src = driver.find_element(By.ID, 'draggable')
+        trg = driver.find_element(By.ID, 'droppable')
+        actions = ActionChains(driver)
+        actions.drag_and_drop(src, trg).perform()
+        driver.save_screenshot("test_actions_drag_trg.png")
