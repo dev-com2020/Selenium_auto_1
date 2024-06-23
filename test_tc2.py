@@ -28,6 +28,7 @@ class TestTc2:
         "search_term, expected_title", [
             pytest.param("blazer", "Search results for: 'blazer'", id="wyszukuje blazer"),
             pytest.param("shirts", "Search results for: 'shirts'", id="wyszukuje shirts"),
+            pytest.param("skirt", "Search results for: 'skirt'", id="wyszukuje skirt"),
         ]
     )
     def test_search(self, driver, search_term, expected_title):
