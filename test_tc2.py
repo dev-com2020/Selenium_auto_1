@@ -42,3 +42,10 @@ class TestTc2:
         my_acc_link = driver.find_element(By.PARTIAL_LINK_TEXT, "MY")
         my_acc_link.click()
         assert driver.title == 'Customer Login'
+
+    def test_by_tag_locator(self, driver):
+        links = driver.find_elements(By.TAG_NAME, "a")
+        print(f"Znaleziono: {len(links)}")
+        for e in links:
+            if e.text:
+                print(e.text)
