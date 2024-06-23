@@ -25,13 +25,11 @@ class TestTc2:
         driver.get("http://demo-store.seleniumacademy.com/")
 
     def test_tc2(self, driver):
-        driver.find_element(By.ID, "search").click()
         driver.find_element(By.ID, "search").send_keys("blazer")
         driver.find_element(By.CSS_SELECTOR, ".search-button").click()
-        driver.find_element(By.CSS_SELECTOR, "h1").click()
+        assert driver.title == "Search results for: 'blazer'"
 
     def test_tc3(self, driver):
-        driver.find_element(By.ID, "search").click()
         driver.find_element(By.ID, "search").send_keys("shirts")
         driver.find_element(By.CSS_SELECTOR, ".search-button").click()
-        driver.find_element(By.CSS_SELECTOR, "h1").click()
+        assert driver.title.lower() == "Search results for: 'shirts'".lower()
