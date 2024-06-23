@@ -35,6 +35,7 @@ def browser_fixture(request):
         options = webdriver.ChromeOptions()
         if headless_param:
             options.add_argument('--headless')
+        options.add_experimental_option('prefs', {'intl.accept_languages': 'en-US'})
         driver = webdriver.Chrome(options=options)
     else:
         raise Exception("Unsupported browser")

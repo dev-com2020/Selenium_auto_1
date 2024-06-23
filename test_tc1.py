@@ -38,7 +38,7 @@ class TestTc1:
         ).click()
         time.sleep(2)
         price = self.get_element_text(driver, By.CLASS_NAME, 'woocommerce-Price-currencySymbol')
-        print(f'Tekst elementu "Add to cart": {price}')
+        print(f'Tekst elementu: {price}')
 
         # Oczekiwanie na element
         WebDriverWait(driver, 10).until(
