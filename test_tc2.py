@@ -79,3 +79,31 @@ class TestTc2:
         search_button = driver.find_element(By.CLASS_NAME, "search-button")
         tag_name = search_button.tag_name
         print("Tag w którym znajduje się element:", tag_name)
+
+    def test_send_keys(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        search_box.send_keys(Keys.SHIFT + "skirt")
+        search_box.submit()
+        assert driver.title == "Search results for: 'SKIRT'"
+
+    def test_clear_box(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        search_box.send_keys(Keys.SHIFT + "skirt")
+        search_box.clear()
+
+    def test_state(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        is_displayed = search_box.is_displayed()
+        print("Search box jest widoczny?", is_displayed)
+
+    def test_state_enabled(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        is_enabled = search_box.is_enabled()
+        print("Search box jest dostępny?", is_enabled)
+
+    def test_state_selected(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        is_selected = search_box.is_selected()
+        print("Search box jest wybrany?", is_selected)
+
+
