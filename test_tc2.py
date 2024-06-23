@@ -49,3 +49,33 @@ class TestTc2:
         for e in links:
             if e.text:
                 print(e.text)
+
+    def test_element_get_atrr(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        print("Atrybut name:", search_box.get_attribute("name"))
+        print("Atrybut Id:", search_box.get_attribute("id"))
+        print("Atrybut Placeholder:", search_box.get_attribute("placeholder"))
+
+    def test_get_text(self, driver):
+        site_notice = driver.find_element(By.CLASS_NAME, "global-site-notice")
+        print("Tekst z klasy:", site_notice.text)
+
+    def test_get_css_value(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        font_family = search_box.value_of_css_property("font-family")
+        print("Font w boxie:", font_family)
+
+    def test_get_location(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        location = search_box.location
+        print("Lokalizacja elementu", location)
+
+    def test_get_size(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        size = search_box.size
+        print("Rozmiar elementu", size)
+
+    def test_get_tag_name(self, driver):
+        search_button = driver.find_element(By.CLASS_NAME, "search-button")
+        tag_name = search_button.tag_name
+        print("Tag w którym znajduje się element:", tag_name)
