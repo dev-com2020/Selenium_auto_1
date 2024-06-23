@@ -15,7 +15,9 @@ class TestTc2:
 
     @pytest.fixture(scope='class')
     def driver(self):
-        driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        driver = webdriver.Chrome(options=options)
         yield driver
         driver.quit()
 
@@ -35,3 +37,8 @@ class TestTc2:
         driver.find_element(By.ID, "search").send_keys(search_term)
         driver.find_element(By.CSS_SELECTOR, ".search-button").click()
         assert driver.title.lower() == expected_title.lower()
+
+    def test_by_link_text(self, driver):
+        my_acc_link = driver.find_element(By.PARTIAL_LINK_TEXT, "MY")
+        my_acc_link.click()
+        assert driver.title == 'Customer Login'
