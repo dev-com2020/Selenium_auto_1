@@ -106,4 +106,12 @@ class TestTc2:
         is_selected = search_box.is_selected()
         print("Search box jest wybrany?", is_selected)
 
+    def test_search_nav(self, driver):
+        search_box = driver.find_element(By.NAME, 'q')
+        search_box.send_keys(Keys.SHIFT + "skirt")
+        search_box.submit()
+        assert driver.title == "Search results for: 'SKIRT'"
+        driver.back()
+        driver.forward()
+        driver.refresh()
 

@@ -25,6 +25,7 @@ class TestTc6:
     def setup(self, driver):
         driver.set_window_size(1603, 947)
         driver.get("https://guidebook.seleniumacademy.com/Frames.html")
+        driver.implicitly_wait(5)
 
     def test_switch_between_frames(self, driver):
         driver.switch_to.frame(0)
