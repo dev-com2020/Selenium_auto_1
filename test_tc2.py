@@ -24,12 +24,13 @@ class TestTc2:
         driver.set_window_size(1603, 947)
         driver.get("http://demo-store.seleniumacademy.com/")
 
-    def test_tc2(self, driver):
-        driver.find_element(By.ID, "search").send_keys("blazer")
+    @pytest.mark.parametrize(
+        "search_term, expected_title", [
+            pytest.param("blazer", "Search results for: 'blazer'", id="wyszukuje blazer"),
+            pytest.param("shirts", "Search results for: 'shirts'", id="wyszukuje shirts"),
+        ]
+    )
+    def test_search(self, driver, search_term, expected_title):
+        driver.find_element(By.ID, "search").send_keys(search_term)
         driver.find_element(By.CSS_SELECTOR, ".search-button").click()
-        assert driver.title == "Search results for: 'blazer'"
-
-    def test_tc3(self, driver):
-        driver.find_element(By.ID, "search").send_keys("shirts")
-        driver.find_element(By.CSS_SELECTOR, ".search-button").click()
-        assert driver.title.lower() == "Search results for: 'shirts'".lower()
+        assert driver.title.lower() == expected_title.lower()
