@@ -22,6 +22,7 @@ class TestTc9:
     def driver(self):
         options = webdriver.ChromeOptions()
         options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--headless')
         driver = webdriver.Chrome(options=options)
         yield driver
         driver.quit()
@@ -52,4 +53,6 @@ class TestTc9:
         print("X coord: " + str(three.location['x']) + " Y coord: " + str(three.location['y']))
 
         actions = ActionChains(driver)
-        actions.move_by_offset(three.location['x'] + 10, three.location['y'] + 1).perform()
+        actions.move_by_offset(three.location['x'] + 10, three.location['y'] + 1).click()
+        actions.perform()
+        driver.save_screenshot("test_actions2.png")
