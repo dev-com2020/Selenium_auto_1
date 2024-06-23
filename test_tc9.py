@@ -48,7 +48,7 @@ class TestTc9:
         time.sleep(2)
         driver.save_screenshot("test_actions.png")
 
-    def test_move_by_offset(self,driver):
+    def test_move_by_offset(self, driver):
         three = driver.find_element(By.NAME, "three")
         print("X coord: " + str(three.location['x']) + " Y coord: " + str(three.location['y']))
 
@@ -56,3 +56,39 @@ class TestTc9:
         actions.move_by_offset(three.location['x'] + 10, three.location['y'] + 1).click()
         actions.perform()
         driver.save_screenshot("test_actions2.png")
+
+    def test_should_click_on_ele(self, driver):
+        one = driver.find_element(By.NAME, "one")
+        three = driver.find_element(By.NAME, "three")
+        six = driver.find_element(By.NAME, "six")
+        actions = ActionChains(driver)
+
+        actions.click(one)
+        actions.perform()
+        driver.save_screenshot("1.png")
+
+        actions.click(three)
+        actions.perform()
+        driver.save_screenshot("3.png")
+
+        actions.click(six)
+        actions.perform()
+        driver.save_screenshot("6.png")
+
+    def test_should_click_and_hold(self, driver):
+        driver.get("http://guidebook.seleniumacademy.com/Sortable.html")
+        actions = ActionChains(driver)
+        actions.move_by_offset(200, 20).click_and_hold()
+        actions.move_by_offset(200, 0)
+        actions.perform()
+        time.sleep(1)
+        driver.save_screenshot("test_actions_hold.png")
+
+    def test_should_click_and_hold2(self, driver):
+        driver.get("http://guidebook.seleniumacademy.com/Sortable.html")
+        three = driver.find_element(By.NAME, "three")
+        actions = ActionChains(driver)
+        actions.click_and_hold(three)
+        actions.move_by_offset(100, 0)
+        actions.perform()
+        driver.save_screenshot("test_actions_hold2.png")
