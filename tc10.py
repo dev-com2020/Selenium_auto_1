@@ -17,10 +17,17 @@ class IAmTheEventListener(AbstractEventListener):
         print("After navigate back")
 
 
+# def main():
+#     options = webdriver.ChromeOptions()
+#     options.add_argument('--headless')
+#     driver = webdriver.Chrome(options=options)
+
 def main():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote(
+        command_executor='http://192.168.31.240:4444/wd/hub',
+        options=options)
 
     try:
         event_listener = IAmTheEventListener()
