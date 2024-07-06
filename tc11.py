@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
 
@@ -19,22 +18,23 @@ class IAmTheEventListener(AbstractEventListener):
 
 
 def main():
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-
     def run_test(browser_name):
         if browser_name == 'chrome':
-            capabilities = DesiredCapabilities.CHROME.copy()
+            options = webdriver.ChromeOptions()
+            options.set_capability('browserName', 'chrome')
         elif browser_name == 'firefox':
-            capabilities = DesiredCapabilities.FIREFOX.copy()
+            options = webdriver.FirefoxOptions()
+            options.set_capability('browserName', 'firefox')
         elif browser_name == 'edge':
-            capabilities = DesiredCapabilities.EDGE.copy()
+            options = webdriver.EdgeOptions()
+            options.set_capability('browserName', 'MicrosoftEdge')
         else:
             raise ValueError('Nieznana przeglądarka {}'.format(browser_name))
 
+        options.add_argument('--headless')
+
         driver = webdriver.Remote(
             command_executor='http://192.168.31.240:4444/wd/hub',
-            # desired_capabilities=capabilities,
             options=options)
 
         try:
