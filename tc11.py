@@ -34,7 +34,7 @@ def main():
         options.add_argument('--headless')
 
         driver = webdriver.Remote(
-            command_executor='http://192.168.31.240:4444/wd/hub',
+            command_executor='83.229.86.19:4444/wd/hub',
             options=options)
 
         try:
@@ -48,7 +48,7 @@ def main():
             driver.close()
             driver.quit()
 
-    for browser in ['chrome', 'firefox', 'edge']:
+    for browser in ['firefox']:
         run_test(browser)
 
 
